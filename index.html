@@ -4,18 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>İHH Muvafakatname Sistemi</title>
-
-    <!-- PWA: manifest + tema rengi -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0d9488">
-
-    <!-- iOS'ta "Ana Ekrana Ekle" için gerekli etiketler -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Muvafakatname">
     <link rel="apple-touch-icon" href="./icon-192.png">
     <link rel="icon" href="./icon-192.png">
-
     <style>
         html, body {
             overflow-x: hidden;
@@ -170,6 +165,16 @@
                 background: #15803d;
             }
 
+        .btn-danger {
+            background: #dc2626;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+            .btn-danger:hover {
+                background: #b91c1c;
+            }
+
         .hint {
             font-size: 12.5px;
             color: #475569;
@@ -186,13 +191,16 @@
             font-weight: bold;
         }
 
-        @media screen {
-            #printArea {
-                display: none !important;
-            }
+        @@media screen {
+            #printArea
+
+        {
+            display: none !important;
         }
 
-        @media print {
+        }
+
+        @@media print {
             body {
                 font-family: 'Times New Roman', Times, serif;
                 color: #000;
@@ -210,8 +218,9 @@
                 display: block !important;
             }
 
-            @page {
+            @@page {
                 margin: 0;
+                size: auto;
             }
 
             .print-page {
@@ -250,7 +259,7 @@
                     <option value="varsayilan">Standart (Orijinal) Şablon</option>
                     <option value="yeni" style="font-weight:bold;">+ Yeni Metin / Düzenle...</option>
                 </select>
-                <button id="btnSablonSil" onclick="sablonuSil()" style="display:none; background:#dc2626; white-space:nowrap;" title="Seçili şablonu sil">Şablonu Sil</button>
+                <button id="btnSablonSil" class="btn-danger" onclick="sablonuSil()" style="display:none;" title="Seçili şablonu sil">Şablonu Sil</button>
             </div>
 
             <div id="ozelSablonPaneli" class="template-panel">
@@ -273,11 +282,11 @@
             <div style="display:flex; gap:20px;">
                 <div class="radio-option">
                     <input type="radio" name="mod" id="modIsimsiz" checked onchange="toggleMod()">
-                    <label style="display:inline;font-weight:normal;" for="modIsimsiz">İsimsiz (Matbu Çıktı)</label>
+                    <label style="display:inline;font-weight:normal;" for="modIsimsiz">İsimsiz Belge</label>
                 </div>
                 <div class="radio-option">
                     <input type="radio" name="mod" id="modIsmeOzel" onchange="toggleMod()">
-                    <label style="display:inline;font-weight:normal;" for="modIsmeOzel">İsme Özel (Toplu Çıktı)</label>
+                    <label style="display:inline;font-weight:normal;" for="modIsmeOzel">İsme Özel Belge</label>
                 </div>
             </div>
         </div>
@@ -288,15 +297,15 @@
                 <div style="display:flex; gap:15px;">
                     <div class="radio-option">
                         <input type="radio" name="veriGirisModu" id="veriElle" checked onchange="toggleGirisModu()">
-                        <label style="display:inline;font-weight:normal;" for="veriElle">Elle Yaz</label>
+                        <label style="display:inline;font-weight:normal;" for="veriElle">Manuel Ekle</label>
                     </div>
                     <div class="radio-option">
                         <input type="radio" name="veriGirisModu" id="veriExcel" onchange="toggleGirisModu()">
-                        <label style="display:inline;font-weight:normal;" for="veriExcel">Excel</label>
+                        <label style="display:inline;font-weight:normal;" for="veriExcel">Excel Ekle</label>
                     </div>
                     <div class="radio-option">
                         <input type="radio" name="veriGirisModu" id="veriGorsel" onchange="toggleGirisModu()">
-                        <label style="display:inline;font-weight:normal;" for="veriGorsel">Görsel (OCR)</label>
+                        <label style="display:inline;font-weight:normal;" for="veriGorsel">Görsel Ekle</label>
                     </div>
                 </div>
             </div>
@@ -318,223 +327,223 @@
     <div id="printArea"></div>
 
     <script>
-        const STANDART_METIN = `Sayın Velimiz,
+                const STANDART_METIN = `Sayın Velimiz,
 
-[KURUM] olarak öğrencilerimizin sosyal bilimsel ve kültürel gelişimlerine katkı sağlamak amacıyla [TARİH] tarihinde düzenlenecek olan [YER] etkinliğine katılım sağlanacaktır.
+        [KURUM] olarak öğrencilerimizin sosyal bilimsel ve kültürel gelişimlerine katkı sağlamak amacıyla [TARİH] tarihinde düzenlenecek olan [YER] etkinliğine katılım sağlanacaktır.
 
-Etkinlik boyunca öğrenciler, sorumlu gönüllüler eşliğinde hareket edecektir. Çocuğunuzun bu etkinliğe katılımına izin verdiğinizi belirtmek için aşağıdaki formu doldurmanız rica ederiz.
-
-
-Öğrenci Bilgileri:
-Adı Soyadı        : [İSİM]
-Doğum Tarihi      : ....................................................
-Okulu Sınıfı      : ....................................................
-
-Veli Bilgileri:
-Adı Soyadı        : ....................................................
-Yakınlık Derecesi : ....................................................
-Telefon Numarası  : ....................................................
+        Etkinlik boyunca öğrenciler, sorumlu gönüllüler eşliğinde hareket edecektir. Çocuğunuzun bu etkinliğe katılımına izin verdiğinizi belirtmek için aşağıdaki formu doldurmanız rica ederiz.
 
 
-İZİN BEYANI:
+        Öğrenci Bilgileri:
+        Adı Soyadı        : [İSİM]
+        Doğum Tarihi      : ....................................................
+        Okulu Sınıfı      : ....................................................
 
-Yukarıda bilgileri bulunan velisi olduğum ......................................................... 'nın [KURUM] ekibi ile birlikte [YER]'ne katılmasına ve etkinlik boyunca yapılacak faaliyetlere katılmasına izin veriyorum.
-
-Tarih [TARİH]
-
-Adı Soyadı:
-İmza:
+        Veli Bilgileri:
+        Adı Soyadı        : ....................................................
+        Yakınlık Derecesi : ....................................................
+        Telefon Numarası  : ....................................................
 
 
+        İZİN BEYANI:
 
-Not: Öğrencilerin etkinlik günü yanlarında kimlik bulundurmaları zorunludur.`;
+        Yukarıda bilgileri bulunan velisi olduğum ......................................................... 'nın [KURUM] ekibi ile birlikte [YER]'ne katılmasına ve etkinlik boyunca yapılacak faaliyetlere katılmasına izin veriyorum.
 
-        window.onload = function() {
-            kayitliSablonlariYukle();
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js').catch(function(err) {
-                    console.log('Service worker kaydı başarısız:', err);
-                });
-            }
-        };
+        Tarih [TARİH]
 
-        function kayitliSablonlariYukle() {
-            var select = document.getElementById('sablonSecici');
-            while(select.options.length > 2) { select.remove(1); }
-            var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
-            var index = 1;
-            for(var isim in sablonlar) {
-                var option = document.createElement('option');
-                option.value = "kayitli_" + isim;
-                option.text = isim;
-                select.add(option, index++);
-            }
-        }
+        Adı Soyadı:
+        İmza:
 
-        function sablonDegisti() {
-            var secim = document.getElementById('sablonSecici').value;
-            var panel = document.getElementById('ozelSablonPaneli');
-            var silBtn = document.getElementById('btnSablonSil');
-            if(secim === 'yeni') {
-                panel.style.display = 'block';
-                document.getElementById('ozelMetin').value = "";
-            } else { panel.style.display = 'none'; }
 
-            silBtn.style.display = secim.indexOf('kayitli_') === 0 ? 'inline-block' : 'none';
-        }
 
-        function sablonuSil() {
-            var secim = document.getElementById('sablonSecici').value;
-            if(secim.indexOf('kayitli_') !== 0) return;
+        Not: Öğrencilerin etkinlik günü yanlarında kimlik bulundurmaları zorunludur.`;
 
-            var sablonIsmi = secim.replace('kayitli_', '');
-            if(!confirm('"' + sablonIsmi + '" şablonunu silmek istediğinize emin misiniz?')) return;
-
-            var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
-            delete sablonlar[sablonIsmi];
-            localStorage.setItem('ihhSablonlar', JSON.stringify(sablonlar));
-
-            kayitliSablonlariYukle();
-            document.getElementById('sablonSecici').value = 'varsayilan';
-            sablonDegisti();
-            alert('Şablon silindi.');
-        }
-
-        function varsayilaniGetir() { document.getElementById('ozelMetin').value = STANDART_METIN; }
-
-        function sablonuKaydet() {
-            var isim = document.getElementById('yeniSablonAdi').value.trim();
-            var metin = document.getElementById('ozelMetin').value.trim();
-            if(!isim || !metin) { alert("Lütfen hem şablon adı hem de metin girin."); return; }
-
-            var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
-            sablonlar[isim] = metin;
-            localStorage.setItem('ihhSablonlar', JSON.stringify(sablonlar));
-
-            alert("Şablon başarıyla kaydedildi!");
-            document.getElementById('yeniSablonAdi').value = "";
-            kayitliSablonlariYukle();
-            document.getElementById('sablonSecici').value = "kayitli_" + isim;
-            document.getElementById('ozelSablonPaneli').style.display = 'none';
-        }
-
-        function aktifMetniAl() {
-            var secim = document.getElementById('sablonSecici').value;
-            if(secim === 'varsayilan') return STANDART_METIN;
-            if(secim === 'yeni') return document.getElementById('ozelMetin').value;
-
-            var sablonIsmi = secim.replace('kayitli_', '');
-            var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
-            return sablonlar[sablonIsmi] || STANDART_METIN;
-        }
-
-        function toggleMod() {
-            var ismeOzel = document.getElementById('modIsmeOzel').checked;
-            document.getElementById('ismeOzelPaneli').style.display = ismeOzel ? 'block' : 'none';
-        }
-
-        function toggleGirisModu() {
-            document.getElementById('panelElle').style.display = document.getElementById('veriElle').checked ? 'block' : 'none';
-            document.getElementById('panelExcel').style.display = document.getElementById('veriExcel').checked ? 'block' : 'none';
-            document.getElementById('panelGorsel').style.display = document.getElementById('veriGorsel').checked ? 'block' : 'none';
-        }
-
-        document.getElementById('excelDosya').addEventListener('change', function(e) {
-            var file = e.target.files[0];
-            if (!file) return;
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var data = new Uint8Array(e.target.result);
-                var workbook = XLSX.read(data, {type: 'array'});
-                var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                var jsonData = XLSX.utils.sheet_to_json(firstSheet, {header: 1});
-                var names = [];
-                if(jsonData.length > 0) {
-                    var firstRow = jsonData[0];
-                    var nameColumnIndex = 0;
-                    var startIndex = 0;
-
-                    for(var col = 0; col < firstRow.length; col++) {
-                        if(firstRow[col] && typeof firstRow[col] === 'string') {
-                            var baslik = firstRow[col].toLowerCase();
-                            if(baslik.includes('ad') || baslik.includes('soyad') || baslik.includes('isim')) {
-                                nameColumnIndex = col; startIndex = 1; break;
-                            }
-                        }
+                window.onload = function() {
+                    kayitliSablonlariYukle();
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.register('./sw.js').catch(function(err) {
+                            console.log('Service worker kaydı başarısız:', err);
+                        });
                     }
+                };
 
-                    for(var i = startIndex; i < jsonData.length; i++) {
-                        if(!jsonData[i] || jsonData[i].length === 0) continue;
-                        var hucre = jsonData[i][nameColumnIndex];
-                        if(hucre && typeof hucre === 'string' && hucre.trim() !== "") { names.push(hucre.trim()); }
+                function kayitliSablonlariYukle() {
+                    var select = document.getElementById('sablonSecici');
+                    while(select.options.length > 2) { select.remove(1); }
+                    var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
+                    var index = 1;
+                    for(var isim in sablonlar) {
+                        var option = document.createElement('option');
+                        option.value = "kayitli_" + isim;
+                        option.text = isim;
+                        select.add(option, index++);
                     }
                 }
-                document.getElementById('isimler').value = names.join('\n');
-                document.getElementById('veriElle').checked = true; toggleGirisModu();
-            };
-            reader.readAsArrayBuffer(file);
-        });
 
-        document.getElementById('gorselDosya').addEventListener('change', function(e) {
-            var file = e.target.files[0];
-            if (!file) return;
-            var isimlerKutusu = document.getElementById('isimler');
-            isimlerKutusu.value = "Görsel taranıyor, lütfen bekleyin...";
-            document.getElementById('veriElle').checked = true; toggleGirisModu();
-            document.getElementById('btnYazdir').disabled = true;
+                function sablonDegisti() {
+                    var secim = document.getElementById('sablonSecici').value;
+                    var panel = document.getElementById('ozelSablonPaneli');
+                    var silBtn = document.getElementById('btnSablonSil');
+                    if(secim === 'yeni') {
+                        panel.style.display = 'block';
+                        document.getElementById('ozelMetin').value = "";
+                    } else { panel.style.display = 'none'; }
 
-            Tesseract.recognize(file, 'tur', { logger: m => console.log(m) }).then(({ data: { text } }) => {
-                var lines = text.split('\n').map(line => {
-                    var temiz = line.replace(/[0-9]/g, '').replace(/[:;,\.\-\_]/g, '').trim();
-                    return temiz.replace(/\s+/g, ' ');
-                }).filter(line => line.length > 2 && !line.toLowerCase().includes('ad soyad') && !line.toLowerCase().includes('telefon'));
+                    silBtn.style.display = secim.indexOf('kayitli_') === 0 ? 'inline-block' : 'none';
+                }
 
-                isimlerKutusu.value = lines.join('\n');
-                document.getElementById('btnYazdir').disabled = false;
-            }).catch(err => {
-                isimlerKutusu.value = "Hata oluştu: " + err;
-                document.getElementById('btnYazdir').disabled = false;
-            });
-        });
+                function varsayilaniGetir() { document.getElementById('ozelMetin').value = STANDART_METIN; }
 
-        function belgeyiHazirla() {
-            var kurum = document.getElementById('kurumAdi').value || '..................................';
-            var yer = document.getElementById('etkinlikYeri').value || '..................................';
-            var tarih = document.getElementById('etkinlikTarihi').value || '..................';
-            var ismeOzel = document.getElementById('modIsmeOzel').checked;
-            var printArea = document.getElementById('printArea');
-            printArea.innerHTML = '';
+                function sablonuKaydet() {
+                    var isim = document.getElementById('yeniSablonAdi').value.trim();
+                    var metin = document.getElementById('ozelMetin').value.trim();
+                    if(!isim || !metin) { alert("Lütfen hem şablon adı hem de metin girin."); return; }
 
-            var hamMetin = aktifMetniAl();
+                    var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
+                    sablonlar[isim] = metin;
+                    localStorage.setItem('ihhSablonlar', JSON.stringify(sablonlar));
 
-            var isimListesi = ["........................................"];
-            if(ismeOzel) {
-                var txt = document.getElementById('isimler').value.trim();
-                if(txt.length > 0) { isimListesi = txt.split('\n'); }
-                else { alert("Kişi listesi boş!"); return; }
-            }
+                    alert("Şablon başarıyla kaydedildi!");
+                    document.getElementById('yeniSablonAdi').value = "";
+                    kayitliSablonlariYukle();
+                    document.getElementById('sablonSecici').value = "kayitli_" + isim;
+                    document.getElementById('ozelSablonPaneli').style.display = 'none';
+                }
 
-            isimListesi.forEach(function(isim) {
-                if(isim.trim() === "") return;
+                function sablonuSil() {
+                    var secim = document.getElementById('sablonSecici').value;
+                    if(secim.indexOf('kayitli_') !== 0) return;
 
-                var islenmisMetin = hamMetin
-                    .replace(/\[KURUM\]/g, kurum)
-                    .replace(/\[YER\]/g, yer)
-                    .replace(/\[TARİH\]/g, tarih)
-                    .replace(/\[İSİM\]/g, isim === "........................................" ? isim : "<strong>" + isim + "</strong>");
+                    var sablonIsmi = secim.replace('kayitli_', '');
+                    if(!confirm('"' + sablonIsmi + '" şablonunu silmek istediğinize emin misiniz?')) return;
 
-                var sayfa = document.createElement('div');
-                sayfa.className = 'print-page';
-                sayfa.innerHTML = `
-                    <div style="text-align:center; font-weight:bold; font-size:18px; margin-bottom:30px; line-height:1.5;">
-                        ${kurum}<br>Veli İzin Belgesi
-                    </div>
-                    <div style="font-size:15px; line-height:1.6; text-align:justify; white-space: pre-wrap; font-family: 'Times New Roman', Times, serif;">${islenmisMetin}</div>
-                `;
-                printArea.appendChild(sayfa);
-            });
-            window.print();
-        }
+                    var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
+                    delete sablonlar[sablonIsmi];
+                    localStorage.setItem('ihhSablonlar', JSON.stringify(sablonlar));
+
+                    kayitliSablonlariYukle();
+                    document.getElementById('sablonSecici').value = 'varsayilan';
+                    sablonDegisti();
+                    alert('Şablon silindi.');
+                }
+
+                function aktifMetniAl() {
+                    var secim = document.getElementById('sablonSecici').value;
+                    if(secim === 'varsayilan') return STANDART_METIN;
+                    if(secim === 'yeni') return document.getElementById('ozelMetin').value;
+
+                    var sablonIsmi = secim.replace('kayitli_', '');
+                    var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
+                    return sablonlar[sablonIsmi] || STANDART_METIN;
+                }
+
+                function toggleMod() {
+                    var ismeOzel = document.getElementById('modIsmeOzel').checked;
+                    document.getElementById('ismeOzelPaneli').style.display = ismeOzel ? 'block' : 'none';
+                }
+
+                function toggleGirisModu() {
+                    document.getElementById('panelElle').style.display = document.getElementById('veriElle').checked ? 'block' : 'none';
+                    document.getElementById('panelExcel').style.display = document.getElementById('veriExcel').checked ? 'block' : 'none';
+                    document.getElementById('panelGorsel').style.display = document.getElementById('veriGorsel').checked ? 'block' : 'none';
+                }
+
+                document.getElementById('excelDosya').addEventListener('change', function(e) {
+                    var file = e.target.files[0];
+                    if (!file) return;
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var data = new Uint8Array(e.target.result);
+                        var workbook = XLSX.read(data, {type: 'array'});
+                        var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                        var jsonData = XLSX.utils.sheet_to_json(firstSheet, {header: 1});
+                        var names = [];
+                        if(jsonData.length > 0) {
+                            var firstRow = jsonData[0];
+                            var nameColumnIndex = 0;
+                            var startIndex = 0;
+
+                            for(var col = 0; col < firstRow.length; col++) {
+                                if(firstRow[col] && typeof firstRow[col] === 'string') {
+                                    var baslik = firstRow[col].toLowerCase();
+                                    if(baslik.includes('ad') || baslik.includes('soyad') || baslik.includes('isim')) {
+                                        nameColumnIndex = col; startIndex = 1; break;
+                                    }
+                                }
+                            }
+
+                            for(var i = startIndex; i < jsonData.length; i++) {
+                                if(!jsonData[i] || jsonData[i].length === 0) continue;
+                                var hucre = jsonData[i][nameColumnIndex];
+                                if(hucre && typeof hucre === 'string' && hucre.trim() !== "") { names.push(hucre.trim()); }
+                            }
+                        }
+                        document.getElementById('isimler').value = names.join('\n');
+                        document.getElementById('veriElle').checked = true; toggleGirisModu();
+                    };
+                    reader.readAsArrayBuffer(file);
+                });
+
+                document.getElementById('gorselDosya').addEventListener('change', function(e) {
+                    var file = e.target.files[0];
+                    if (!file) return;
+                    var isimlerKutusu = document.getElementById('isimler');
+                    isimlerKutusu.value = "Görsel taranıyor, lütfen bekleyin...";
+                    document.getElementById('veriElle').checked = true; toggleGirisModu();
+                    document.getElementById('btnYazdir').disabled = true;
+
+                    Tesseract.recognize(file, 'tur', { logger: m => console.log(m) }).then(({ data: { text } }) => {
+                        var lines = text.split('\n').map(line => {
+                            var temiz = line.replace(/[0-9]/g, '').replace(/[:;,\.\-\_]/g, '').trim();
+                            return temiz.replace(/\s+/g, ' ');
+                        }).filter(line => line.length > 2 && !line.toLowerCase().includes('ad soyad') && !line.toLowerCase().includes('telefon'));
+
+                        isimlerKutusu.value = lines.join('\n');
+                        document.getElementById('btnYazdir').disabled = false;
+                    }).catch(err => {
+                        isimlerKutusu.value = "Hata oluştu: " + err;
+                        document.getElementById('btnYazdir').disabled = false;
+                    });
+                });
+
+                function belgeyiHazirla() {
+                    var kurum = document.getElementById('kurumAdi').value || '..................................';
+                    var yer = document.getElementById('etkinlikYeri').value || '..................................';
+                    var tarih = document.getElementById('etkinlikTarihi').value || '..................';
+                    var ismeOzel = document.getElementById('modIsmeOzel').checked;
+                    var printArea = document.getElementById('printArea');
+                    printArea.innerHTML = '';
+
+                    var hamMetin = aktifMetniAl();
+
+                    var isimListesi = ["........................................"];
+                    if(ismeOzel) {
+                        var txt = document.getElementById('isimler').value.trim();
+                        if(txt.length > 0) { isimListesi = txt.split('\n'); }
+                        else { alert("Kişi listesi boş!"); return; }
+                    }
+
+                    isimListesi.forEach(function(isim) {
+                        if(isim.trim() === "") return;
+
+                        var islenmisMetin = hamMetin
+                            .replace(/\[KURUM\]/g, kurum)
+                            .replace(/\[YER\]/g, yer)
+                            .replace(/\[TARİH\]/g, tarih)
+                            .replace(/\[İSİM\]/g, isim === "........................................" ? isim : "<strong>" + isim + "</strong>");
+
+                        var sayfa = document.createElement('div');
+                        sayfa.className = 'print-page';
+                        sayfa.innerHTML = `
+                            <div style="text-align:center; font-weight:bold; font-size:18px; margin-bottom:30px; line-height:1.5;">
+                                ${kurum}<br>Veli İzin Belgesi
+                            </div>
+                            <div style="font-size:15px; line-height:1.6; text-align:justify; white-space: pre-wrap; font-family: 'Times New Roman', Times, serif;">${islenmisMetin}</div>
+                        `;
+                        printArea.appendChild(sayfa);
+                    });
+                    window.print();
+                }
     </script>
 </body>
 </html>
