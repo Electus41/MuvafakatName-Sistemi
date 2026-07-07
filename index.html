@@ -46,8 +46,24 @@
                 min-width: 140px;
             }
 
+        .sablon-kaydet-satiri {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+            .sablon-kaydet-satiri input {
+                min-width: 120px;
+            }
+
         @media (max-width: 480px) {
             .ust-satir > .form-group {
+                flex-basis: 100% !important;
+            }
+
+            .sablon-kaydet-satiri > * {
                 flex-basis: 100% !important;
             }
         }
@@ -191,16 +207,13 @@
             font-weight: bold;
         }
 
-        @@media screen {
-            #printArea
-
-        {
-            display: none !important;
+        @media screen {
+            #printArea {
+                display: none !important;
+            }
         }
 
-        }
-
-        @@media print {
+        @media print {
             body {
                 font-family: 'Times New Roman', Times, serif;
                 color: #000;
@@ -218,7 +231,7 @@
                 display: block !important;
             }
 
-            @@page {
+            @page {
                 margin: 0;
                 size: auto;
             }
@@ -269,7 +282,7 @@
                 </div>
                 <textarea id="ozelMetin" style="width:100%; height:350px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit; line-height:1.4;"></textarea>
 
-                <div style="display:flex; gap:10px; margin-top:10px; align-items:center;">
+                <div class="sablon-kaydet-satiri">
                     <button class="btn-secondary" onclick="varsayilaniGetir()">Orijinal Metinde Düzenleme Yap</button>
                     <input type="text" id="yeniSablonAdi" placeholder="Şablona isim ver" style="flex:1; padding:8px;">
                     <button class="btn-success" onclick="sablonuKaydet()">Şablonlara Ekle</button>
