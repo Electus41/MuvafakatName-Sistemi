@@ -17,6 +17,11 @@
     <link rel="icon" href="./icon-192.png">
 
     <style>
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
         body {
             font-family: 'Times New Roman', Times, serif;
             background-color: #f1f5f9;
@@ -33,6 +38,23 @@
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             margin: auto;
             font-family: sans-serif;
+            box-sizing: border-box;
+        }
+
+        .ust-satir {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+            .ust-satir > .form-group {
+                min-width: 140px;
+            }
+
+        @media (max-width: 480px) {
+            .ust-satir > .form-group {
+                flex-basis: 100% !important;
+            }
         }
 
         h2 {
@@ -206,7 +228,7 @@
     <div class="container no-print">
         <h2>Muvafakatname Sistemi</h2>
 
-        <div style="display:flex; gap:10px;">
+        <div class="ust-satir">
             <div class="form-group" style="flex:2.5;">
                 <label>Kurum Adı</label>
                 <input type="text" id="kurumAdi" value="İHH İnsani Yardım Vakfı Kocaeli Şubesi - İzmit">
