@@ -276,14 +276,27 @@
             </div>
 
             <div id="ozelSablonPaneli" class="template-panel">
-                <label>Belge İçeriğinin Tamamı:</label>
+                <label>Bu Şablonun Amaç / Açıklama Metni:</label>
                 <div class="hint">
-                    Değişkenler: <span class="tag-badge">[KURUM]</span>, <span class="tag-badge">[YER]</span>, <span class="tag-badge">[TARİH]</span>, <span class="tag-badge">[İSİM]</span>
+                    Sadece etkinliğin amacını yazın. Öğrenci bilgileri, veli bilgileri, izin beyanı, tarih, imza ve kimlik notu <strong>otomatik olarak</strong> standart formatta eklenecektir.<br>
+                    Değişkenler: <span class="tag-badge">[KURUM]</span>, <span class="tag-badge">[YER]</span>, <span class="tag-badge">[TARİH]</span>
                 </div>
-                <textarea id="ozelMetin" style="width:100%; height:350px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit; line-height:1.4;"></textarea>
+                <textarea id="ozelAmacMetni" style="width:100%; height:130px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit; line-height:1.4; box-sizing:border-box;"></textarea>
+
+                <label style="margin-top:12px; display:flex; align-items:center; gap:6px; font-weight:normal; font-size:13px; cursor:pointer;">
+                    <input type="checkbox" id="gelismisMod" onchange="gelismisModDegisti()" style="width:auto;">
+                    Gelişmiş Mod: Tüm belge metnini serbestçe düzenlemek istiyorum
+                </label>
+
+                <div id="gelismisMetinAlani" style="display:none; margin-top:8px;">
+                    <div class="hint">
+                        Dikkat: Bu modda öğrenci/veli bilgileri, izin beyanı gibi standart kısımlar da dahil <strong>tüm metni siz yönetiyorsunuz</strong>. Değişkenler: <span class="tag-badge">[KURUM]</span>, <span class="tag-badge">[YER]</span>, <span class="tag-badge">[TARİH]</span>, <span class="tag-badge">[İSİM]</span>
+                    </div>
+                    <textarea id="ozelMetin" style="width:100%; height:350px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit; line-height:1.4; box-sizing:border-box;"></textarea>
+                </div>
 
                 <div class="sablon-kaydet-satiri">
-                    <button class="btn-secondary" onclick="varsayilaniGetir()">Orijinal Metinde Düzenleme Yap</button>
+                    <button class="btn-secondary" onclick="varsayilaniGetir()">Varsayılanı Getir</button>
                     <input type="text" id="yeniSablonAdi" placeholder="Şablona isim ver" style="flex:1; padding:8px;">
                     <button class="btn-success" onclick="sablonuKaydet()">Şablonlara Ekle</button>
                 </div>
@@ -340,36 +353,42 @@
     <div id="printArea"></div>
 
     <script>
-                const STANDART_METIN = `Sayın Velimiz,
+                const VARSAYILAN_AMAC_METNI = `[KURUM] olarak öğrencilerimizin sosyal bilimsel ve kültürel gelişimlerine katkı sağlamak amacıyla [TARİH] tarihinde düzenlenecek olan [YER] etkinliğine katılım sağlanacaktır.`;
 
-        [KURUM] olarak öğrencilerimizin sosyal bilimsel ve kültürel gelişimlerine katkı sağlamak amacıyla [TARİH] tarihinde düzenlenecek olan [YER] etkinliğine katılım sağlanacaktır.
+                const SABIT_ARA_METIN = `
 
-        Etkinlik boyunca öğrenciler, sorumlu gönüllüler eşliğinde hareket edecektir. Çocuğunuzun bu etkinliğe katılımına izin verdiğinizi belirtmek için aşağıdaki formu doldurmanız rica ederiz.
-
-
-        Öğrenci Bilgileri:
-        Adı Soyadı        : [İSİM]
-        Doğum Tarihi      : ....................................................
-        Okulu Sınıfı      : ....................................................
-
-        Veli Bilgileri:
-        Adı Soyadı        : ....................................................
-        Yakınlık Derecesi : ....................................................
-        Telefon Numarası  : ....................................................
+Etkinlik boyunca öğrenciler, sorumlu gönüllüler eşliğinde hareket edecektir. Çocuğunuzun bu etkinliğe katılımına izin verdiğinizi belirtmek için aşağıdaki formu doldurmanız rica ederiz.
 
 
-        İZİN BEYANI:
+Öğrenci Bilgileri:
+Adı Soyadı        : [İSİM]
+Doğum Tarihi      : ....................................................
+Okulu Sınıfı      : ....................................................
 
-        Yukarıda bilgileri bulunan velisi olduğum ......................................................... 'nın [KURUM] ekibi ile birlikte [YER]'ne katılmasına ve etkinlik boyunca yapılacak faaliyetlere katılmasına izin veriyorum.
-
-        Tarih [TARİH]
-
-        Adı Soyadı:
-        İmza:
+Veli Bilgileri:
+Adı Soyadı        : ....................................................
+Yakınlık Derecesi : ....................................................
+Telefon Numarası  : ....................................................
 
 
+İZİN BEYANI:
 
-        Not: Öğrencilerin etkinlik günü yanlarında kimlik bulundurmaları zorunludur.`;
+Yukarıda bilgileri bulunan velisi olduğum ......................................................... 'nın [KURUM] ekibi ile birlikte [YER]'ne katılmasına ve etkinlik boyunca yapılacak faaliyetlere katılmasına izin veriyorum.
+
+Tarih [TARİH]
+
+Adı Soyadı:
+İmza:
+
+
+
+Not: Öğrencilerin etkinlik günü yanlarında kimlik bulundurmaları zorunludur.`;
+
+                const STANDART_METIN = "Sayın Velimiz,\n\n" + VARSAYILAN_AMAC_METNI + SABIT_ARA_METIN;
+
+                function amacMetnindenTamMetinOlustur(amacMetni) {
+                    return "Sayın Velimiz,\n\n" + amacMetni.trim() + SABIT_ARA_METIN;
+                }
 
                 window.onload = function() {
                     kayitliSablonlariYukle();
@@ -393,24 +412,51 @@
                     }
                 }
 
+                function gelismisModDegisti() {
+                    var acik = document.getElementById('gelismisMod').checked;
+                    document.getElementById('gelismisMetinAlani').style.display = acik ? 'block' : 'none';
+                    if(acik) {
+                        var amac = document.getElementById('ozelAmacMetni').value.trim() || VARSAYILAN_AMAC_METNI;
+                        document.getElementById('ozelMetin').value = amacMetnindenTamMetinOlustur(amac);
+                    }
+                }
+
                 function sablonDegisti() {
                     var secim = document.getElementById('sablonSecici').value;
                     var panel = document.getElementById('ozelSablonPaneli');
                     var silBtn = document.getElementById('btnSablonSil');
                     if(secim === 'yeni') {
                         panel.style.display = 'block';
+                        document.getElementById('ozelAmacMetni').value = VARSAYILAN_AMAC_METNI;
+                        document.getElementById('gelismisMod').checked = false;
+                        document.getElementById('gelismisMetinAlani').style.display = 'none';
                         document.getElementById('ozelMetin').value = "";
                     } else { panel.style.display = 'none'; }
 
                     silBtn.style.display = secim.indexOf('kayitli_') === 0 ? 'inline-block' : 'none';
                 }
 
-                function varsayilaniGetir() { document.getElementById('ozelMetin').value = STANDART_METIN; }
+                function varsayilaniGetir() {
+                    document.getElementById('ozelAmacMetni').value = VARSAYILAN_AMAC_METNI;
+                    if(document.getElementById('gelismisMod').checked) {
+                        document.getElementById('ozelMetin').value = STANDART_METIN;
+                    }
+                }
 
                 function sablonuKaydet() {
                     var isim = document.getElementById('yeniSablonAdi').value.trim();
-                    var metin = document.getElementById('ozelMetin').value.trim();
-                    if(!isim || !metin) { alert("Lütfen hem şablon adı hem de metin girin."); return; }
+                    var gelismis = document.getElementById('gelismisMod').checked;
+                    var metin;
+
+                    if(gelismis) {
+                        metin = document.getElementById('ozelMetin').value.trim();
+                    } else {
+                        var amac = document.getElementById('ozelAmacMetni').value.trim();
+                        if(!amac) { alert("Lütfen amaç/açıklama metnini girin."); return; }
+                        metin = amacMetnindenTamMetinOlustur(amac);
+                    }
+
+                    if(!isim || !metin) { alert("Lütfen hem şablon adı hem de metni girin."); return; }
 
                     var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
                     sablonlar[isim] = metin;
@@ -443,7 +489,13 @@
                 function aktifMetniAl() {
                     var secim = document.getElementById('sablonSecici').value;
                     if(secim === 'varsayilan') return STANDART_METIN;
-                    if(secim === 'yeni') return document.getElementById('ozelMetin').value;
+                    if(secim === 'yeni') {
+                        if(document.getElementById('gelismisMod').checked) {
+                            return document.getElementById('ozelMetin').value;
+                        }
+                        var amac = document.getElementById('ozelAmacMetni').value.trim() || VARSAYILAN_AMAC_METNI;
+                        return amacMetnindenTamMetinOlustur(amac);
+                    }
 
                     var sablonIsmi = secim.replace('kayitli_', '');
                     var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
