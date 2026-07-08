@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>İHH Muvafakatname Sistemi</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d9488">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Muvafakatname">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <link rel="icon" href="/icon-192.png">
+    <style>
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f1f5f9;
+            padding: 15px;
+            margin: 0;
+            color: #334155;
+            transition: background 0.3s, color 0.3s;
+        }
+
+            body.dark-mode {
+                background-color: #0f172a;
+                color: #e2e8f0;
+            }
+
+                body.dark-mode .container {
+                    background: #1e293b;
+                    color: #f8fafc;
+                    box-shadow: 0 4px 6px -1px rgb(255 255 255 / 0.1);
+                }
+
+                body.dark-mode h2 {
+                    color: #f8fafc;
+                    border-bottom-color: #14b8a6;
+                }
+
+                body.dark-mode input[type="text"], body.dark-mode select, body.dark-mode textarea {
+                    background: #334155;
+                    color: white;
+                    border-color: #475569;
+                }
+
+                body.dark-mode .radio-group {
+                    background: #0f172a;
+                    border-color: #334155;
+                }
+
+                body.dark-mode .template-panel, body.dark-mode .hidden-panel {
+                    background: #1e293b;
+                    border-color: #475569;
+                }
+
+                body.dark-mode .hint {
+                    color: #cbd5e1;
+                }
+
+                body.dark-mode .tag-badge {
+                    background: #475569;
+                    color: #f8fafc;
+                }
+
+        .container {
+            max-width: 700px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin: auto;
+            font-family: sans-serif;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .ust-satir {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+            .ust-satir > .form-group {
+                min-width: 140px;
+            }
+
+        .sablon-kaydet-satiri {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+            .sablon-kaydet-satiri input {
+                min-width: 120px;
+            }
+
+        @media (max-width: 480px) {
+            .ust-satir > .form-group {
+                flex-basis: 100% !important;
+            }
+
+            .sablon-kaydet-satiri > * {
+                flex-basis: 100% !important;
+            }
+        }
+
+        h2 {
+            color: #0f172a;
+            margin-top: 0;
+            text-align: center;
+            border-bottom: 2px solid #0d9488;
+            padding-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .radio-group {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 15px;
+        }
+
+        .radio-option {
+            margin-bottom: 8px;
+        }
+
+            .radio-option:last-child {
+                margin-bottom: 0;
+            }
+
+        .hidden-panel, .template-panel {
+            display: none;
+            background: #f0fdfa;
+            border: 1px dashed #0d9488;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .template-panel {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+        }
+
+        .file-input-group {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #cbd5e1;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px;
+            background: #0d9488;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            button:hover {
+                background: #0f766e;
+            }
+
+        .btn-full {
+            width: 100%;
+            font-size: 16px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .btn-secondary {
+            background: #64748b;
+            font-size: 13px;
+        }
+
+            .btn-secondary:hover {
+                background: #475569;
+            }
+
+        .btn-success {
+            background: #16a34a;
+            font-size: 13px;
+        }
+
+            .btn-success:hover {
+                background: #15803d;
+            }
+
+        .btn-danger {
+            background: #dc2626;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+            .btn-danger:hover {
+                background: #b91c1c;
+            }
+
+        .btn-wa {
+            background: #25D366;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+            .btn-wa:hover {
+                background: #128C7E;
+            }
+
+        .hint {
+            font-size: 12.5px;
+            color: #475569;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .tag-badge {
+            background: #e2e8f0;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #0f172a;
+            font-weight: bold;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            color: inherit;
+        }
+
+        #gecmisPaneli {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 15px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 10px;
+        }
+
+        .gecmis-item {
+            padding: 8px;
+            border-bottom: 1px solid #cbd5e1;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media screen {
+            #printArea {
+                display: none !important;
+            }
+        }
+
+        @media print {
+            body {
+                font-family: 'Times New Roman', Times, serif;
+                color: #000;
+                background: white;
+            }
+
+            .container {
+                display: none !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            #printArea {
+                display: block !important;
+            }
+
+            @page {
+                margin: 0;
+                size: auto;
+            }
+
+            .print-page {
+                page-break-after: always;
+                padding: 1.5cm 2cm;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <div class="container no-print">
+        <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+        <h2>Muvafakatname Sistemi</h2>
+
+        <div class="ust-satir">
+            <div class="form-group" style="flex:2.5;">
+                <label>Kurum Adı</label>
+                <input type="text" id="kurumAdi" value="İHH İnsani Yardım Vakfı Kocaeli Şubesi - İzmit">
+            </div>
+            <div class="form-group" style="flex:1.5;">
+                <label>Etkinlik Yeri</label>
+                <input type="text" id="etkinlikYeri" placeholder="Örn: Etno Spor Kültür Festivali">
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Tarih</label>
+                <input type="text" id="etkinlikTarihi" placeholder="Örn: 23.05.2026">
+            </div>
+        </div>
+
+        <div class="radio-group" style="background:transparent;">
+            <label>Metin Şablonu Seçimi</label>
+            <div style="display:flex; gap:8px;">
+                <select id="sablonSecici" onchange="sablonDegisti()" style="flex:1;">
+                    <option value="varsayilan">Standart (Orijinal) Şablon</option>
+                    <option value="yeni" style="font-weight:bold;">+ Yeni Metin / Düzenle...</option>
+                </select>
+                <button id="btnSablonSil" class="btn-danger" onclick="sablonuSil()" style="display:none;" title="Seçili şablonu sil">Sil</button>
+            </div>
+
+            <div id="ozelSablonPaneli" class="template-panel">
+                <label>Amac / Açıklama Metni:</label>
+                <textarea id="ozelAmacMetni" style="width:100%; height:80px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit;"></textarea>
+
+                <label style="margin-top:12px; display:flex; align-items:center; gap:6px; font-weight:normal; font-size:13px; cursor:pointer;">
+                    <input type="checkbox" id="gelismisMod" onchange="gelismisModDegisti()" style="width:auto;"> Gelişmiş Mod
+                </label>
+
+                <div id="gelismisMetinAlani" style="display:none; margin-top:8px;">
+                    <textarea id="ozelMetin" style="width:100%; height:200px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit;"></textarea>
+                </div>
+
+                <div class="sablon-kaydet-satiri">
+                    <button class="btn-secondary" onclick="varsayilaniGetir()">Varsayılanı Getir</button>
+                    <input type="text" id="yeniSablonAdi" placeholder="Şablona isim ver" style="flex:1; padding:8px;">
+                    <button class="btn-success" onclick="sablonuKaydet()">Kaydet</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="radio-group">
+            <label>Kişi Modu & Veri Girişi</label>
+            <div style="display:flex; gap:15px; margin-bottom:10px;">
+                <div class="radio-option">
+                    <input type="radio" name="mod" id="modIsimsiz" checked onchange="toggleMod()">
+                    <label style="display:inline;font-weight:normal;" for="modIsimsiz">İsimsiz</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="mod" id="modIsmeOzel" onchange="toggleMod()">
+                    <label style="display:inline;font-weight:normal;" for="modIsmeOzel">İsme Özel</label>
+                </div>
+            </div>
+
+            <div id="ismeOzelPaneli" class="hidden-panel">
+                <div style="display:flex; gap:15px; margin-bottom:10px;">
+                    <div class="radio-option">
+                        <input type="radio" name="veriGirisModu" id="veriElle" checked onchange="toggleGirisModu()">
+                        <label style="display:inline;font-weight:normal;" for="veriElle">Manuel</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="veriGirisModu" id="veriExcel" onchange="toggleGirisModu()">
+                        <label style="display:inline;font-weight:normal;" for="veriExcel">Excel</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="veriGirisModu" id="veriGorsel" onchange="toggleGirisModu()">
+                        <label style="display:inline;font-weight:normal;" for="veriGorsel">Görsel (OCR)</label>
+                    </div>
+                </div>
+
+                <div id="panelElle">
+                    <textarea id="isimler" style="width:100%; height:100px; border:1px solid #cbd5e1; border-radius:4px; padding:8px;"></textarea>
+                </div>
+                <div id="panelExcel" class="file-input-group" style="display:none;">
+                    <input type="file" id="excelDosya" accept=".xlsx, .xls">
+                </div>
+                <div id="panelGorsel" class="file-input-group" style="display:none;">
+                    <input type="file" id="gorselDosya" accept="image/*">
+                </div>
+
+                <div style="margin-top: 10px; font-size: 13px; font-weight: bold; color: #0d9488;">
+                    Katılım Durumu: <span id="kisiSayaci">0</span> Kişi Yüklendi
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+            <button onclick="belgeyiHazirla()" id="btnYazdir" class="btn-full">PDF OLUŞTUR / YAZDIR</button>
+            <button onclick="whatsappPaylas()" class="btn-full btn-wa" style="flex:0.5;">WhatsApp</button>
+        </div>
+
+        <div id="gecmisPaneli">
+            <h4 style="margin:0 0 10px 0;">Son Etkinlikler</h4>
+            <div id="gecmisListe"></div>
+        </div>
+    </div>
+
+    <div id="printArea"></div>
+
+    <script>
+        const VARSAYILAN_AMAC_METNI = `[KURUM] olarak öğrencilerimizin sosyal bilimsel ve kültürel gelişimlerine katkı sağlamak amacıyla [TARİH] tarihinde düzenlenecek olan [YER] etkinliğine katılım sağlanacaktır.`;
+        const SABIT_ARA_METIN = `\n\nEtkinlik boyunca öğrenciler, sorumlu gönüllüler eşliğinde hareket edecektir. Çocuğunuzun bu etkinliğe katılımına izin verdiğinizi belirtmek için aşağıdaki formu doldurmanız rica ederiz.\n\nÖğrenci Bilgileri:\nAdı Soyadı        : [İSİM]\nDoğum Tarihi      : ....................................................\nOkulu Sınıfı      : ....................................................\n\nVeli Bilgileri:\nAdı Soyadı        : \n....................................................\nYakınlık Derecesi : ....................................................\nTelefon Numarası  : ....................................................\n\nİZİN BEYANI:\nYukarıda bilgileri bulunan velisi olduğum ......................................................... 'nın [KURUM] ekibi ile birlikte [YER]'ne katılmasına ve etkinlik boyunca yapılacak faaliyetlere katılmasına izin veriyorum.\n\nTarih: [TARİH]\nAdı Soyadı:\nİmza:\n\nNot: Öğrencilerin etkinlik günü yanlarında kimlik bulundurmaları zorunludur.`;
+        const STANDART_METIN = "Sayın Velimiz,\n\n" + VARSAYILAN_AMAC_METNI + SABIT_ARA_METIN;
+
+        function amacMetnindenTamMetinOlustur(amacMetni) { return "Sayın Velimiz,\n\n" + amacMetni.trim() + SABIT_ARA_METIN;
+        }
+
+        window.onload = function() {
+            kayitliSablonlariYukle();
+            gecmisiYukle();
+            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+
+            var isimlerKutusu = document.getElementById('isimler');
+            isimlerKutusu.placeholder = "Örn: Ahmet Yılmaz | 05551234567\n(Excel veya Görsel yüklendiğinde otomatik dolar)";
+            isimlerKutusu.addEventListener('input', sayacGuncelle);
+        };
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        function kayitliSablonlariYukle() {
+            var select = document.getElementById('sablonSecici');
+            while(select.options.length > 2) select.remove(1);
+            var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
+            var index = 1;
+            for(var isim in sablonlar) {
+                var option = document.createElement('option');
+                option.value = "kayitli_" + isim;
+                option.text = isim;
+                select.add(option, index++);
+            }
+        }
+
+        function sablonDegisti() {
+            var secim = document.getElementById('sablonSecici').value;
+            var panel = document.getElementById('ozelSablonPaneli');
+            if(secim === 'yeni') {
+                panel.style.display = 'block';
+                document.getElementById('ozelAmacMetni').value = VARSAYILAN_AMAC_METNI;
+                document.getElementById('gelismisMod').checked = false;
+                document.getElementById('gelismisMetinAlani').style.display = 'none';
+            } else { panel.style.display = 'none';
+            }
+            document.getElementById('btnSablonSil').style.display = secim.indexOf('kayitli_') === 0 ?
+            'inline-block' : 'none';
+        }
+
+        function gelismisModDegisti() {
+            var acik = document.getElementById('gelismisMod').checked;
+            document.getElementById('gelismisMetinAlani').style.display = acik ? 'block' : 'none';
+            if(acik) {
+                var amac = document.getElementById('ozelAmacMetni').value.trim() ||
+                VARSAYILAN_AMAC_METNI;
+                document.getElementById('ozelMetin').value = amacMetnindenTamMetinOlustur(amac);
+            }
+        }
+
+        function sablonuKaydet() {
+            var isim = document.getElementById('yeniSablonAdi').value.trim();
+            var gelismis = document.getElementById('gelismisMod').checked;
+            var metin = gelismis ? document.getElementById('ozelMetin').value.trim() : amacMetnindenTamMetinOlustur(document.getElementById('ozelAmacMetni').value.trim());
+
+            if(!isim || !metin) return;
+            var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
+            sablonlar[isim] = metin;
+            localStorage.setItem('ihhSablonlar', JSON.stringify(sablonlar));
+            kayitliSablonlariYukle();
+            document.getElementById('sablonSecici').value = "kayitli_" + isim;
+            document.getElementById('ozelSablonPaneli').style.display = 'none';
+        }
+
+        function sablonuSil() {
+            var secim = document.getElementById('sablonSecici').value;
+            if(secim.indexOf('kayitli_') !== 0) return;
+            var sablonIsmi = secim.replace('kayitli_', '');
+            var sablonlar = JSON.parse(localStorage.getItem('ihhSablonlar') || '{}');
+            delete sablonlar[sablonIsmi];
+            localStorage.setItem('ihhSablonlar', JSON.stringify(sablonlar));
+            kayitliSablonlariYukle();
+            document.getElementById('sablonSecici').value = 'varsayilan';
+            sablonDegisti();
+        }
+
+        function aktifMetniAl() {
+            var secim = document.getElementById('sablonSecici').value;
+            if(secim === 'varsayilan') return STANDART_METIN;
+            if(secim === 'yeni') return document.getElementById('gelismisMod').checked ? document.getElementById('ozelMetin').value : amacMetnindenTamMetinOlustur(document.getElementById('ozelAmacMetni').value.trim() || VARSAYILAN_AMAC_METNI);
+            return JSON.parse(localStorage.getItem('ihhSablonlar') || '{}')[secim.replace('kayitli_', '')] || STANDART_METIN;
+        }
+
+        function toggleMod() { document.getElementById('ismeOzelPaneli').style.display = document.getElementById('modIsmeOzel').checked ?
+        'block' : 'none'; }
+
+        function toggleGirisModu() {
+            document.getElementById('panelElle').style.display = document.getElementById('veriElle').checked ?
+            'block' : 'none';
+            document.getElementById('panelExcel').style.display = document.getElementById('veriExcel').checked ? 'block' : 'none';
+            document.getElementById('panelGorsel').style.display = document.getElementById('veriGorsel').checked ? 'block' : 'none';
+        }
+
+        function sayacGuncelle() {
+            var txt = document.getElementById('isimler').value.trim();
+            document.getElementById('kisiSayaci').innerText = txt ? txt.split('\n').filter(i => i.trim() !== '').length : 0;
+        }
+
+        // EXCEL OKUMA VE TELEFON/İSİM AYRIŞTIRMA MANTIĞI
+        document.getElementById('excelDosya').addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, {type: 'array'});
+                var jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {header: 1});
+                var records = [];
+
+                if(jsonData.length > 0) {
+                
+                    var nameCol = -1;
+                    var phoneCol = -1;
+
+                    for(var col = 0; col < jsonData[0].length; col++) {
+                        var header = String(jsonData[0][col]).toLowerCase();
+               
+                        if(header.match(/ad|soyad|isim/)) nameCol = col;
+                        if(header.match(/telefon|tel|numara/)) phoneCol = col;
+                    }
+
+                    for(var i = 1;
+                    i < jsonData.length; i++) {
+                        if(nameCol > -1 && jsonData[i][nameCol]) {
+                            var n = String(jsonData[i][nameCol]).trim();
+                            var p = (phoneCol > -1 && jsonData[i][phoneCol]) ? String(jsonData[i][phoneCol]).trim() : "";
+                            records.push(p ? n + " | " + p : n);
+                        }
+                    }
+                }
+                document.getElementById('isimler').value = records.join('\n');
+                document.getElementById('veriElle').checked = true; toggleGirisModu(); sayacGuncelle();
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        // GELİŞMİŞ AKILLI GÖRSEL OKUMA VE TELEFON AYRIŞTIRMA MANTIĞI (OCR)
+        document.getElementById('gorselDosya').addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (!file) return;
+            document.getElementById('isimler').value = "Görsel taranıyor, lütfen bekleyin...";
+            document.getElementById('veriElle').checked = true; toggleGirisModu();
+
+            
+            Tesseract.recognize(file, 'tur').then(({ data: { text } }) => {
+                var lines = text.split('\n');
+                var records = [];
+
+                lines.forEach(function(line) {
+                    var lowerLine = line.toLowerCase().trim();
+
+              
+                    // Başlık satırlarını ve boşlukları otomatik ele
+                    if (lowerLine.includes('telefon') || lowerLine.includes('adı') || lowerLine.includes('soyad') || lowerLine.includes('numara') || lowerLine === "") {
+                        return;
+                    }
+
+            
+                    var phone = "";
+                    var name = line;
+                    // Telefon numarasını yakala (C#'taki RegExp mantığının JS karşılığı)
+                    var phoneRegex = /(?:\+?90)?\s*0?\s*5(?:\s*\d){9}/;
+                    var match = line.match(phoneRegex);
+
+                    if (match) {
+                        phone = match[0].replace(/\D/g, '');
+                        // Sadece rakamları ayıkla
+                        name = line.replace(match[0], '');
+                        // Satırdan telefon numarasını sök at
+                    }
+
+                    // İsmi temizle (Kalan gereksiz sembol ve rakamları sil)
+                    name = name.replace(/[0-9:;,\.\-\_\(\)\*]/g, '').trim().replace(/\s+/g, ' ');
+                    // Geçerli bir isim kaldıysa listeye ekle
+                    if (name.length > 2) {
+                        records.push(phone ? name + " | " + phone : name);
+                    }
+                });
+
+                document.getElementById('isimler').value = records.join('\n');
+                sayacGuncelle();
+            }).catch(err => {
+                console.error("OCR Hatası:", err);
+                document.getElementById('isimler').value = "Hata: Görsel taranamadı.";
+            });
+        });
+
+        function gecmisiKaydet(yer, tarih) {
+            if(!yer || !tarih) return;
+            var gecmis = JSON.parse(localStorage.getItem('ihhGecmis') || '[]');
+            var yeniKayit = { yer: yer, tarih: tarih, ts: new Date().getTime() };
+            gecmis.unshift(yeniKayit);
+            localStorage.setItem('ihhGecmis', JSON.stringify(gecmis.slice(0, 10)));
+            gecmisiYukle();
+        }
+
+        function gecmisiYukle() {
+            var liste = document.getElementById('gecmisListe');
+            var gecmis = JSON.parse(localStorage.getItem('ihhGecmis') || '[]');
+            liste.innerHTML = gecmis.map(g => `<div class="gecmis-item"><span><b>${g.yer}</b> (${g.tarih})</span></div>`).join('');
+        }
+
+        // WHATSAPP API GÖNDERİMİ
+        async function whatsappPaylas() {
+            var kurum = document.getElementById('kurumAdi').value;
+            var yer = document.getElementById('etkinlikYeri').value || 'Etkinlik';
+            var tarih = document.getElementById('etkinlikTarihi').value || '..................';
+            var txt = document.getElementById('isimler').value.trim();
+            if(!txt) {
+                alert("Gönderilecek kişi listesi boş! Lütfen listeden kişi ekleyin, Excel yükleyin veya Görsel taratın.");
+                return;
+            }
+
+            var lines = txt.split('\n');
+            var peopleList = lines.map(line => {
+                var parts = line.split('|');
+                return {
+                    name: parts[0] ? parts[0].trim() : "",
+                    phone: parts[1] ? parts[1].trim() : ""
+         
+               };
+            }).filter(p => p.name !== "");
+            var payload = {
+                kurum: kurum,
+                yer: yer,
+                tarih: tarih,
+                template: aktifMetniAl(),
+                people: peopleList
+            
+            };
+
+            try {
+                var response = await fetch('https://localhost:7141/api/send-bulk', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+           
+                 });
+
+                var result = await response.json();
+                if(result.success) {
+                    alert("Veriler yerel WhatsApp botuna başarıyla aktarıldı!");
+                }
+            } catch (error) {
+                console.error("Yerel API bağlantı hatası:", error);
+                alert("Yerel API'ye (https://localhost:7141) bağlanılamadı. Bilgisayarda C# uygulamasının çalıştığından emin olun.");
+            }
+        }
+
+        // PDF YAZDIRMA (Numaraları gizleyerek sadece isme göre kağıt basar)
+        function belgeyiHazirla() {
+            var kurum = document.getElementById('kurumAdi').value ||
+            '..................................';
+            var yer = document.getElementById('etkinlikYeri').value || '..................................';
+            var tarih = document.getElementById('etkinlikTarihi').value || '..................';
+            var printArea = document.getElementById('printArea');
+            printArea.innerHTML = '';
+            var hamMetin = aktifMetniAl();
+            var isimListesi = ["........................................"];
+
+            if(document.getElementById('modIsmeOzel').checked) {
+                var txt = document.getElementById('isimler').value.trim();
+                if(txt.length > 0) isimListesi = txt.split('\n'); else { alert("Liste boş!"); return;
+                }
+            }
+
+            isimListesi.forEach(function(line) {
+                if(line.trim() === "") return;
+
+                var parts = line.split('|');
+                var isim = parts[0].trim();
+
+                var metin 
+                = hamMetin.replace(/\[KURUM\]/g, kurum).replace(/\[YER\]/g, yer).replace(/\[TARİH\]/g, tarih).replace(/\[İSİM\]/g, isim === "........................................" ? isim : "<strong>" + isim + "</strong>");
+                var div = document.createElement('div');
+                div.className = 'print-page';
+                div.innerHTML = `<div style="text-align:center; font-weight:bold; font-size:18px; margin-bottom:30px;">${kurum}<br>Veli İzin Belgesi</div><div style="font-size:15px; line-height:1.6; text-align:justify; white-space: pre-wrap;">${metin}</div>`;
+                printArea.appendChild(div);
+   
+             });
+
+            gecmisiKaydet(yer, tarih);
+            window.print();
+        }
+    </script>
+</body>
+</html>
