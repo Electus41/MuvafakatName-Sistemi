@@ -26,47 +26,17 @@
             transition: background 0.5s ease, color 0.5s ease;
         }
 
-        /* OTOMATİK KARANLIK MOD STİLLERİ (Saat 19:00 - 07:00 arası aktif olur) */
-        body.dark-mode {
-            background-color: #0f172a;
-            color: #e2e8f0;
-        }
-
-        body.dark-mode .container {
-            background: #1e293b;
-            color: #f8fafc;
-            box-shadow: 0 4px 6px -1px rgb(255 255 255 / 0.1);
-        }
-
-        body.dark-mode h2 {
-            color: #f8fafc;
-            border-bottom-color: #14b8a6;
-        }
-
-        body.dark-mode input[type="text"], body.dark-mode select, body.dark-mode textarea {
-            background: #334155;
-            color: white;
-            border-color: #475569;
-        }
-
-        body.dark-mode .radio-group {
-            background: #0f172a;
-            border-color: #334155;
-        }
-
-        body.dark-mode .template-panel, body.dark-mode .hidden-panel {
-            background: #1e293b;
-            border-color: #475569;
-        }
-
-        body.dark-mode .hint {
-            color: #cbd5e1;
-        }
-
-        body.dark-mode .tag-badge {
-            background: #475569;
-            color: #f8fafc;
-        }
+        /* KARANLIK MOD STİLLERİ */
+        body.dark-mode { background-color: #0f172a; color: #e2e8f0; }
+        body.dark-mode .container { background: #1e293b; color: #f8fafc; box-shadow: 0 4px 6px -1px rgb(255 255 255 / 0.1); }
+        body.dark-mode h2 { color: #f8fafc; border-bottom-color: #14b8a6; }
+        body.dark-mode input[type="text"], body.dark-mode input[type="date"], body.dark-mode select, body.dark-mode textarea { background: #334155; color: white; border-color: #475569; }
+        body.dark-mode .radio-group { background: #0f172a; border-color: #334155; }
+        body.dark-mode .template-panel, body.dark-mode .hidden-panel { background: #1e293b; border-color: #475569; }
+        body.dark-mode .hint { color: #cbd5e1; }
+        body.dark-mode .tag-badge { background: #475569; color: #f8fafc; }
+        body.dark-mode .ai-kurumsal-panel { background: #111827; border-color: #14b8a6; }
+        body.dark-mode #waKuyrukPaneli { background: #052e16; border-color: #16a34a; }
 
         .container {
             max-width: 700px;
@@ -80,248 +50,89 @@
             position: relative;
         }
 
-        .ust-satir {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        /* MANUEL TEMA BUTONU STİLİ */
+        #temaBtn {
+            position: absolute; 
+            top: 20px; 
+            right: 20px;
+            background: transparent; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 50%;
+            width: 36px; 
+            height: 36px; 
+            font-size: 16px; 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            transition: 0.3s; 
+            color: inherit; 
+            padding: 0;
         }
+        
+        body.dark-mode #temaBtn { border-color: #475569; }
+        #temaBtn:hover { transform: scale(1.1); background: #e2e8f0; }
+        body.dark-mode #temaBtn:hover { background: #334155; }
 
-        .ust-satir > .form-group {
-            min-width: 140px;
-        }
-
-        .sablon-kaydet-satiri {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .sablon-kaydet-satiri input {
-            min-width: 120px;
-        }
+        .ust-satir { display: flex; gap: 10px; flex-wrap: wrap; }
+        .ust-satir > .form-group { min-width: 140px; }
+        .sablon-kaydet-satiri { display: flex; gap: 10px; margin-top: 10px; align-items: center; flex-wrap: wrap; }
+        .sablon-kaydet-satiri input { min-width: 120px; }
 
         @media (max-width: 480px) {
-            .ust-satir > .form-group {
-                flex-basis: 100% !important;
-            }
-
-            .sablon-kaydet-satiri > * {
-                flex-basis: 100% !important;
-            }
+            .ust-satir > .form-group { flex-basis: 100% !important; }
+            .sablon-kaydet-satiri > * { flex-basis: 100% !important; }
+            #temaBtn { top: 15px; right: 15px; }
         }
 
         h2 {
-            color: #0f172a;
-            margin-top: 0;
-            text-align: center;
-            border-bottom: 2px solid #0d9488;
-            padding-bottom: 8px;
+            color: #0f172a; margin-top: 0; text-align: center; border-bottom: 2px solid #0d9488;
+            padding-bottom: 8px; padding-right: 40px; 
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+        input[type="text"], input[type="date"], select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; font-family: inherit; }
+        
+        .radio-group { background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 15px; }
+        .radio-option { margin-bottom: 8px; }
+        .radio-option:last-child { margin-bottom: 0; }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
+        .hidden-panel, .template-panel { display: none; background: #f0fdfa; border: 1px dashed #0d9488; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
+        .ai-kurumsal-panel { display: none; background: #f0fdfa; border: 1px solid #0d9488; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
+        
+        .file-input-group { margin-top: 10px; padding-top: 10px; border-top: 1px solid #cbd5e1; }
+        input[type="file"] { width: 100%; padding: 8px; font-size: 14px; }
 
-        input[type="text"], select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
+        button { padding: 10px; background: #0d9488; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #0f766e; }
+        .btn-full { width: 100%; font-size: 16px; padding: 12px; margin-top: 10px; }
+        .btn-secondary { background: #64748b; font-size: 13px; }
+        .btn-secondary:hover { background: #475569; }
+        .btn-success { background: #16a34a; font-size: 13px; }
+        .btn-success:hover { background: #15803d; }
+        .btn-danger { background: #dc2626; font-size: 13px; white-space: nowrap; }
+        .btn-danger:hover { background: #b91c1c; }
+        .btn-wa { background: #25D366; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-wa:hover { background: #128C7E; }
 
-        .radio-group {
-            background: #f8fafc;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #e2e8f0;
-            margin-bottom: 15px;
-        }
+        .hint { font-size: 12.5px; color: #475569; margin-bottom: 10px; line-height: 1.5; }
+        
+        #gecmisPaneli { max-height: 200px; overflow-y: auto; margin-top: 15px; border-top: 2px solid #e2e8f0; padding-top: 10px; }
+        .gecmis-item { padding: 8px; border-bottom: 1px solid #cbd5e1; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
 
-        .radio-option {
-            margin-bottom: 8px;
-        }
+        /* YENİ WHATSAPP KUYRUK PANELİ STİLİ */
+        #waKuyrukPaneli { display: none; margin-top: 20px; padding: 15px; background: #f0fdf4; border: 1px solid #22c55e; border-radius: 6px; }
+        .wa-list-btn { display: block; background: #25D366; color: white; text-decoration: none; padding: 10px; margin-bottom: 8px; border-radius: 4px; font-weight: bold; text-align: left; transition: background 0.3s; }
+        .wa-list-btn:hover { background: #128C7E; }
 
-        .radio-option:last-child {
-            margin-bottom: 0;
-        }
-
-        .hidden-panel, .template-panel {
-            display: none;
-            background: #f0fdfa;
-            border: 1px dashed #0d9488;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-        }
-
-        /* Kurumsal Yapay Zeka Paneli Teması */
-        .ai-kurumsal-panel {
-            background: #f0fdfa;
-            border: 1px solid #0d9488;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-        }
-
-        body.dark-mode .ai-kurumsal-panel {
-            background: #111827;
-            border-color: #14b8a6;
-        }
-
-        .file-input-group {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #cbd5e1;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            font-size: 14px;
-        }
-
-        button {
-            padding: 10px;
-            background: #0d9488;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        button:hover {
-            background: #0f766e;
-        }
-
-        .btn-full {
-            width: 100%;
-            font-size: 16px;
-            padding: 12px;
-            margin-top: 10px;
-        }
-
-        .btn-secondary {
-            background: #64748b;
-            font-size: 13px;
-        }
-
-        .btn-secondary:hover {
-            background: #475569;
-        }
-
-        .btn-success {
-            background: #16a34a;
-            font-size: 13px;
-        }
-
-        .btn-success:hover {
-            background: #15803d;
-        }
-
-        .btn-danger {
-            background: #dc2626;
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
-        .btn-danger:hover {
-            background: #b91c1c;
-        }
-
-        .btn-wa {
-            background: #25D366;
-            font-size: 13px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .btn-wa:hover {
-            background: #128C7E;
-        }
-
-        .hint {
-            font-size: 12.5px;
-            color: #475569;
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-
-        .tag-badge {
-            background: #e2e8f0;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-            color: #0f172a;
-            font-weight: bold;
-        }
-
-        #gecmisPaneli {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-top: 15px;
-            border-top: 2px solid #e2e8f0;
-            padding-top: 10px;
-        }
-
-        .gecmis-item {
-            padding: 8px;
-            border-bottom: 1px solid #cbd5e1;
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        @media screen {
-            #printArea {
-                display: none !important;
-            }
-        }
-
+        @media screen { #printArea { display: none !important; } }
         @media print {
-            body {
-                font-family: 'Times New Roman', Times, serif;
-                color: #000;
-                background: white;
-            }
-
-            .container {
-                display: none !important;
-            }
-
-            .no-print {
-                display: none !important;
-            }
-
-            #printArea {
-                display: block !important;
-            }
-
-            @page {
-                margin: 0;
-                size: auto;
-            }
-
-            .print-page {
-                page-break-after: always;
-                padding: 1.5cm 2cm;
-                box-sizing: border-box;
-            }
+            body { font-family: 'Times New Roman', Times, serif; color: #000; background: white; }
+            .container, .no-print { display: none !important; }
+            #printArea { display: block !important; }
+            @page { margin: 0; size: auto; }
+            .print-page { page-break-after: always; padding: 1.5cm 2cm; box-sizing: border-box; }
         }
     </style>
     <!-- Gerekli Kütüphaneler (Excel ve OCR için) -->
@@ -330,6 +141,7 @@
 </head>
 <body>
     <div class="container no-print">
+        <button id="temaBtn" onclick="temaDegistir()" title="Tema Değiştir">🌙</button>
         <h2>Muvafakatname Sistemi</h2>
 
         <div class="ust-satir">
@@ -343,7 +155,7 @@
             </div>
             <div class="form-group" style="flex:1;">
                 <label>Tarih</label>
-                <input type="text" id="etkinlikTarihi" placeholder="Örn: 23.05.2026">
+                <input type="date" id="etkinlikTarihi">
             </div>
         </div>
 
@@ -358,7 +170,6 @@
                 <button id="btnSablonSil" class="btn-danger" onclick="sablonuSil()" style="display:none;" title="Seçili şablonu sil">Sil</button>
             </div>
 
-            <!-- MANUEL DÜZENLEME PANELİ -->
             <div id="ozelSablonPaneli" class="template-panel">
                 <label>Amac / Açıklama Metni (Manuel düzenleyebilirsiniz):</label>
                 <textarea id="ozelAmacMetni" style="width:100%; height:80px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit;"></textarea>
@@ -378,8 +189,7 @@
                 </div>
             </div>
 
-            <!-- YAPAY ZEKA DESTEKLİ ASİSTAN PANELİ -->
-            <div id="yapayZekaAsistanPaneli" class="ai-kurumsal-panel" style="display:none; margin-top: 10px;">
+            <div id="yapayZekaAsistanPaneli" class="ai-kurumsal-panel">
                 <label style="color:#0d9488; margin-bottom:5px; font-weight:bold;">🤖 Yapay Zeka Asistanı</label>
                 <div class="hint" style="color:#475569; margin-bottom:8px;">
                     Sadece etkinliği ve nereye gidileceğini kısaca yazın (Örn: "Çocukları bilim merkezine götürüyoruz" veya "Halı saha maçı"). Asistan resmi amacı sizin için toparlar.
@@ -393,7 +203,7 @@
                 </div>
 
                 <label>Asistanın Hazırladığı Taslak Amac Metni (Düzenleyebilirsiniz):</label>
-                <textarea id="aiUretilenAmacMetni" style="width:100%; height:80px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit; margin-top:5px;" placeholder="Asistana Yazdır butonuna bastığınızda sonuç buraya gelecektir..."></textarea>
+                <textarea id="aiUretilenAmacMetni" style="width:100%; height:80px; padding:10px; border:1px solid #cbd5e1; border-radius:4px; font-family:inherit; margin-top:5px;"></textarea>
             </div>
         </div>
 
@@ -444,8 +254,11 @@
 
         <div style="display:flex; gap:10px;">
             <button onclick="belgeyiHazirla()" id="btnYazdir" class="btn-full">PDF OLUŞTUR / YAZDIR</button>
-            <button onclick="whatsappPaylas()" class="btn-full btn-wa" style="flex:0.5;">WhatsApp</button>
+            <button onclick="whatsappKuyrugunuOlustur()" class="btn-full btn-wa" style="flex:0.5;">WhatsApp</button>
         </div>
+
+        <!-- YENİ: WHATSAPP KUYRUK LİSTESİNİN ÇIKACAĞI YER -->
+        <div id="waKuyrukPaneli"></div>
 
         <div id="gecmisPaneli">
             <h4 style="margin:0 0 10px 0;">Son Etkinlikler</h4>
@@ -464,29 +277,64 @@
             return "Sayın Velimiz,\n\n" + amacMetni.trim() + SABIT_ARA_METIN;
         }
 
-        // OTOMATİK SAAT TABANLI GECE/GÜNDÜZ MODU KONTROLÜ
+        // TEMA YÖNETİMİ
+        function temaBaslat() {
+            var kayitliTema = localStorage.getItem('seciliTema');
+            if (kayitliTema === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('temaBtn').innerText = '☀️';
+            } else if (kayitliTema === 'light') {
+                document.body.classList.remove('dark-mode');
+                document.getElementById('temaBtn').innerText = '🌙';
+            } else {
+                otomatikTemaKontrolu(); 
+            }
+        }
+
+        function temaDegistir() {
+            var isDark = document.body.classList.contains('dark-mode');
+            if (isDark) {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('seciliTema', 'light');
+                document.getElementById('temaBtn').innerText = '🌙';
+            } else {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('seciliTema', 'dark');
+                document.getElementById('temaBtn').innerText = '☀️';
+            }
+        }
+
         function otomatikTemaKontrolu() {
+            if (localStorage.getItem('seciliTema')) return; 
             const suAn = new Date();
             const saat = suAn.getHours();
-
-            // Akşam 19:00 ile Sabah 07:00 arası karanlık mod
             if (saat >= 19 || saat < 7) {
                 document.body.classList.add('dark-mode');
+                document.getElementById('temaBtn').innerText = '☀️';
             } else {
                 document.body.classList.remove('dark-mode');
+                document.getElementById('temaBtn').innerText = '🌙';
             }
         }
 
         window.onload = function() {
-            otomatikTemaKontrolu();
-            // Saati arka planda takip eder
+            temaBaslat();
             setInterval(otomatikTemaKontrolu, 60000);
+
+            // GÜNÜN TARİHİNİ OTOMATİK DOLDURMA (YYYY-MM-DD formatında)
+            var bugun = new Date();
+            var yyyy = bugun.getFullYear();
+            var mm = String(bugun.getMonth() + 1).padStart(2, '0');
+            var dd = String(bugun.getDate()).padStart(2, '0');
+            document.getElementById('etkinlikTarihi').value = `${yyyy}-${mm}-${dd}`;
 
             kayitliSablonlariYukle();
             gecmisiYukle();
             gunlukSayaciGuncelle(0);
 
-            document.getElementById('manuelAmacMetni').value = VARSAYILAN_AMAC_METNI;
+            if(document.getElementById('manuelAmacMetni')) {
+                document.getElementById('manuelAmacMetni').value = VARSAYILAN_AMAC_METNI;
+            }
 
             var isimlerKutusu = document.getElementById('isimler');
             isimlerKutusu.placeholder = "Örn: Ahmet Yılmaz | 05551234567\n(Excel veya Görsel yüklendiğinde otomatik dolar)";
@@ -533,7 +381,6 @@
                 ozelPanel.style.display = 'none';
                 aiAsistanPanel.style.display = 'none';
             }
-
             document.getElementById('btnSablonSil').style.display = secim.indexOf('kayitli_') === 0 ? 'inline-block' : 'none';
         }
 
@@ -704,64 +551,6 @@
             liste.innerHTML = gecmis.map(g => `<div class="gecmis-item"><span><b>${g.yer}</b> (${g.tarih})</span></div>`).join('');
         }
 
-        // WHATSAPP C# İSTEĞİ (Portsuz)
-        async function whatsappPaylas() {
-            var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-            if(isMobile) {
-                alert("ℹ️ Toplu WhatsApp gönderim özelliği sadece bilgisayar (Windows) üzerinden çalışmaktadır.\n\nBu özelliği kullanmak için uygulamanın Masaüstü versiyonunu bilgisayarınıza indirebilirsiniz.");
-                return;
-            }
-
-            var kurum = document.getElementById('kurumAdi').value || '..................................';
-            var yer = document.getElementById('etkinlikYeri').value || 'Etkinlik';
-            var tarih = document.getElementById('etkinlikTarihi').value || '..................';
-            var txt = document.getElementById('isimler').value.trim();
-
-            if(!txt) {
-                alert("Gönderilecek kişi listesi boş! Lütfen listeden kişi ekleyin, Excel yükleyin veya Görsel taratın.");
-                return;
-            }
-
-            var lines = txt.split('\n');
-            var peopleList = lines.map(line => {
-                var parts = line.split('|');
-                return {
-                    name: parts[0] ? parts[0].trim() : "",
-                    phone: parts[1] ? parts[1].trim() : ""
-                };
-            }).filter(p => p.name !== "");
-
-            var payload = {
-                kurum: kurum,
-                yer: yer,
-                tarih: tarih,
-                template: aktifMetniAl(),
-                people: peopleList
-            };
-
-            try {
-                // Eğer kodunu GitHub Pages'e yüklüyorsan, buradaki fetch yolunu backend URL'si ile 
-                // değiştirmelisin (Örn: fetch('https://seninsunucun.com/api/send-bulk')).
-                // Kendi bilgisayarında çalıştırıyorsan bu göreceli yol hatasız çalışır.
-                var response = await fetch('/api/send-bulk', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                var result = await response.json();
-                if(result.success) {
-                    alert("Veriler yerel WhatsApp botuna başarıyla aktarıldı! (Arka planda gönderim başlıyor)");
-                } else {
-                    alert("Hata: " + result.message);
-                }
-            } catch (error) {
-                console.error("Yerel API bağlantı hatası:", error);
-                alert("Yerel API bağlantı hatası! C# projenizin çalışır durumda olduğundan emin olun.");
-            }
-        }
-
         function gunlukSayaciGuncelle(kullanimMiktari) {
             let bugun = new Date().toLocaleDateString();
             let limitData = JSON.parse(localStorage.getItem('aiLimit') || '{"tarih": "", "kullanilan": 0}');
@@ -778,7 +567,7 @@
             if(sayacElementi) sayacElementi.innerText = kalan;
         }
 
-        // YAPAY ZEKA C# İSTEĞİ (Portsuz)
+        // TAMAMEN İSTEMCİ TARAFLI (SERVERLESS) YAPAY ZEKA BAĞLANTISI
         async function yapayZekaUret() {
             var promptTxt = document.getElementById('aiPrompt').value.trim();
             if(!promptTxt) { alert("Lütfen yapay zeka asistanına etkinliğin konusunu kısaca yazın."); return; }
@@ -788,36 +577,115 @@
             btn.innerText = "Üretiliyor...";
             btn.disabled = true;
 
+            var apiKey = "AQ.Ab8RN6IzkHGgFkkL8D-LVb21jKvnhvpkBYI7DiCUVZ-rMj4wXA";
+            var url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`;
+
+            var systemPrompt = `Sen resmi bir kurum asistanısın. Kullanıcının vereceği kısa etkinliğe göre bir 'İzin Belgesi / Muvafakatname' için SADECE 'amaç ve etkinlik detayı' cümlesi oluşturacaksın. 
+Kural 1: Başlık, selamlama veya saygılarımla kısımları (Sayın Velimiz, Not vs.) KESİNLİKLE OLMAYACAK. 
+Kural 2: Sadece 1 veya 2 cümlelik temiz bir paragraf yaz.
+Kural 3: Cümle her zaman resmi bir dille yazılmalı ve '... amacıyla etkinlik düzenlenecektir.' veya '... amacıyla katılım sağlanacaktır.' gibi bitmeli.
+Kullanıcının Kısa Girdisi: ${promptTxt}
+Sadece amac metnini yaz:`;
+
+            var payload = {
+                contents: [{ parts: [{ text: systemPrompt }] }]
+            };
+
             try {
-                // Eğer kodunu GitHub Pages'e yüklüyorsan, buradaki fetch yolunu backend URL'si ile 
-                // değiştirmelisin (Örn: fetch('https://seninsunucun.com/api/generate-text')).
-                var response = await fetch('/api/generate-text', {
+                var response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: promptTxt })
+                    body: JSON.stringify(payload)
                 });
 
-                var result = await response.json();
-                if(result.success) {
-                    document.getElementById('aiUretilenAmacMetni').value = result.text;
+                if(response.ok) {
+                    var json = await response.json();
+                    var text = json.candidates[0].content.parts[0].text;
+                    document.getElementById('aiUretilenAmacMetni').value = text.trim();
                     gunlukSayaciGuncelle(1);
                 } else {
-                    alert(result.message || "Yapay zeka metni üretilirken bir hata oluştu.");
+                    var errorDetail = await response.text();
+                    alert("Google API Hatası: " + errorDetail);
                 }
             } catch (error) {
                 console.error("Yapay Zeka API bağlantı hatası:", error);
-                alert("Yerel C# API'sine bağlanılamadı. Projenizin çalışır durumda olduğundan emin olun.");
+                alert("Yapay Zeka sunucusuna bağlanılamadı. Lütfen internet bağlantınızı kontrol edin.");
             }
 
             btn.innerText = orjText;
             btn.disabled = false;
         }
 
+        // TAMAMEN İSTEMCİ TARAFLI YARI-OTOMATİK WHATSAPP KUYRUĞU
+        function whatsappKuyrugunuOlustur() {
+            var kurum = document.getElementById('kurumAdi').value || '..................................';
+            var yer = document.getElementById('etkinlikYeri').value || 'Etkinlik';
+            
+            // TAKVİMDEN GELEN 2026-05-23 VERİSİNİ 23.05.2026 YAP
+            var hamTarih = document.getElementById('etkinlikTarihi').value;
+            var tarih = hamTarih ? hamTarih.split('-').reverse().join('.') : '..................';
+            
+            var txt = document.getElementById('isimler').value.trim();
+
+            if(!txt || !document.getElementById('modIsmeOzel').checked) {
+                alert("WhatsApp gönderimi için 'İsme Özel Liste' modunun seçili olması ve listede numara bulunması gereklidir.");
+                return;
+            }
+
+            var lines = txt.split('\n');
+            var peopleList = lines.map(line => {
+                var parts = line.split('|');
+                return {
+                    name: parts[0] ? parts[0].trim() : "",
+                    phone: parts[1] ? parts[1].trim() : ""
+                };
+            }).filter(p => p.name !== "" && p.phone !== "");
+
+            if(peopleList.length === 0) {
+                alert("Listede geçerli telefon numarası bulunamadı. Lütfen numaraları (İsim | Numara) formatında girin.");
+                return;
+            }
+
+            var hamMetin = aktifMetniAl();
+            var panel = document.getElementById('waKuyrukPaneli');
+            panel.innerHTML = '<h4 style="margin-top:0;">📱 WhatsApp Gönderim Listesi</h4><p class="hint">Aşağıdaki kişilere tıklayarak onay metinlerini kendi cihazınızdaki WhatsApp üzerinden tek tuşla gönderebilirsiniz.</p>';
+            panel.style.display = 'block';
+
+            peopleList.forEach((p) => {
+                var telefon = p.phone.replace(/\D/g, "");
+                if (telefon.startsWith("05") && telefon.length === 11) telefon = "90" + telefon.substring(1);
+                else if (telefon.startsWith("5") && telefon.length === 10) telefon = "90" + telefon;
+
+                var ozelMetin = hamMetin.replace(/\[KURUM\]/g, kurum).replace(/\[YER\]/g, yer).replace(/\[TARİH\]/g, tarih).replace(/\[İSİM\]/g, p.name);
+                var encodedMetin = encodeURIComponent(ozelMetin);
+                
+                var link = `https://wa.me/${telefon}?text=${encodedMetin}`;
+
+                var btn = document.createElement('a');
+                btn.href = link;
+                btn.target = "_blank"; 
+                btn.className = "wa-list-btn";
+                btn.innerHTML = `🟢 ${p.name} - Gönder`;
+                btn.onclick = function() { 
+                    this.style.opacity = '0.6'; 
+                    this.style.background = '#15803d'; 
+                    this.innerHTML = `✔️ ${p.name} - Gönderildi`; 
+                };
+                panel.appendChild(btn);
+            });
+
+            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         // PDF OLUŞTURMA
         function belgeyiHazirla() {
             var kurum = document.getElementById('kurumAdi').value || '..................................';
             var yer = document.getElementById('etkinlikYeri').value || '..................................';
-            var tarih = document.getElementById('etkinlikTarihi').value || '..................';
+            
+            // TAKVİMDEN GELEN 2026-05-23 VERİSİNİ 23.05.2026 YAP
+            var hamTarih = document.getElementById('etkinlikTarihi').value;
+            var tarih = hamTarih ? hamTarih.split('-').reverse().join('.') : '..................';
+            
             var printArea = document.getElementById('printArea');
             printArea.innerHTML = '';
 
